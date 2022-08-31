@@ -1,0 +1,15 @@
+.AddListEditor {
+  background: var(--clr-secondary);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.textArea {
+  width: 100%;
+  height: 20px;
+  margin-bottom: 5px;
+  padding: 5px;
+  border: none;
+  outline: none;
+  resize: none;
+}

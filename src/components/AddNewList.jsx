@@ -1,21 +1,21 @@
 import React from "react";
+import "../styles/AddNewList.css";
 import { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+import ActionBtns from "./ActionBtns";
 
-const AddNewList = () => {
+const AddNewList = ({ toggleAddList }) => {
   const [listTittle, setListTittle] = useState("");
   return (
-    <div>
+    <div className="AddListEditor">
       <TextareaAutosize
         className="textArea"
         value={listTittle}
+        placeholder="Enter List Title"
         onChange={(e) => setListTittle(e.target.value)}
       />
 
-      <div className="btn btnActions">
-        <button>Add List</button>
-        <i className="fa-solid fa-xmark"></i>
-      </div>
+      <ActionBtns btnLabel="Add List" toggleAddList={toggleAddList} />
     </div>
   );
 };
