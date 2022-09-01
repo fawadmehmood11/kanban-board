@@ -5,7 +5,7 @@ import Board from "./components/Board";
 function App() {
   return (
     <div className="App">
-      <header className="header">Trello Board Clone</header>
+      {/* <header className="header">Trello Board Clone</header> */}
       <Board />
     </div>
   );
