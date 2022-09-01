@@ -31,6 +31,23 @@ const listSlice = createSlice({
       },
     },
 
+    updateListTitle: {
+      reducer: (state, action) => {
+        const relevantList = state.lists.find(
+          (list) => list.id === action.payload.id
+        );
+        relevantList.tittle = action.payload.tittle;
+      },
+      prepare(id, newTittle) {
+        return {
+          payload: {
+            id,
+            tittle: newTittle,
+          },
+        };
+      },
+    },
+
     addCard: (state, action) => {
       const relevantList = state.lists.find((list) => {
         return list.id === action.payload.listId;
@@ -51,6 +68,6 @@ const listSlice = createSlice({
 
 export const getLists = (state) => state.lists.lists;
 
-export const { addList, addCard } = listSlice.actions;
+export const { addList, addCard, updateListTitle } = listSlice.actions;
 
 export default listSlice.reducer;

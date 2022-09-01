@@ -11,13 +11,20 @@ const TextArea = styled(TextareaAutosize)`
   resize: none;
 `;
 
-const TextAreaComp = ({ value, placeholderVal, handleChange, list }) => {
+const TextAreaComp = ({
+  value,
+  placeholderVal,
+  handleChange,
+  saveChange,
+  list,
+}) => {
   return (
     <TextArea
       value={value}
       placeholder={placeholderVal}
       onChange={handleChange}
       minRows={list ? 2 : 3}
+      onKeyDown={saveChange}
     />
   );
 };
