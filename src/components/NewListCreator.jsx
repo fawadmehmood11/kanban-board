@@ -6,6 +6,7 @@ import ActionBtns from "./ActionBtns";
 import { useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
 import { addList } from "../features/ListSlice";
+import TextAreaComp from "./TextAreaComp";
 
 const NewListCreator = ({ toggleAddList }) => {
   const [listTittle, setListTittle] = useState("");
@@ -17,13 +18,24 @@ const NewListCreator = ({ toggleAddList }) => {
     dispatch(addList(id, listTittle));
   };
 
+  const handleChange = (e) => {
+    setListTittle(e.target.value);
+  };
+
   return (
     <div className="ListEditor">
-      <TextareaAutosize
+      {/* <TextareaAutosize
         className="textArea"
         value={listTittle}
         placeholder="Enter List Title"
         onChange={(e) => setListTittle(e.target.value)}
+      /> */}
+
+      <TextAreaComp
+        value={listTittle}
+        placeholderVal="Enter List Title"
+        handleChange={handleChange}
+        list={true}
       />
 
       <ActionBtns

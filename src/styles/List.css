@@ -5,8 +5,9 @@
 }
 
 .listItem {
+  width: 250px;
   background-color: #eaebec;
-  padding: 5px 10px;
+  padding: 8px 10px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -19,4 +20,5 @@
 
 .cardBtn {
   background-color: #f5f6f8;
+  width: 100%;
 }

@@ -2,11 +2,7 @@ import React from "react";
 import "../styles/List.css";
 
 const List = ({ list }) => {
-  const { tittle } = list;
-
-  const addCard = () => {
-    console.log("addCard");
-  };
+  const { id, tittle } = list;
 
   return (
     <div className="listItem">
@@ -14,7 +10,7 @@ const List = ({ list }) => {
 
       <div className="listCards">Card</div>
 
-      <button className="btn btnAddList cardBtn" onClick={addCard}>
+      <button className="btn btnAddList cardBtn">
         <i className="fa-light fa-plus"></i>
         Card
       </button>

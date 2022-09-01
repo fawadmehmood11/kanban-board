@@ -18,7 +18,6 @@ const listSlice = createSlice({
 
     addList: {
       reducer: (state, action) => {
-        console.log(action.payload);
         state.lists.push(action.payload);
       },
       prepare(id, listTittle) {
@@ -30,11 +29,15 @@ const listSlice = createSlice({
         };
       },
     },
+
+    addCard: (state, action) => {
+      console.log(action.payload);
+    },
   },
 });
 
 export const getLists = (state) => state.lists.lists;
 
-export const { addList } = listSlice.actions;
+export const { addList, addCard } = listSlice.actions;
 
 export default listSlice.reducer;
