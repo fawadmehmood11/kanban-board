@@ -6,6 +6,7 @@
 
 .listItem {
   width: 250px;
+  height: fit-content;
   background-color: #eaebec;
   padding: 8px 10px;
   display: flex;

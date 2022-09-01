@@ -1,12 +1,11 @@
 import React from "react";
 import "../styles/NewListCreator.css";
 import { useState } from "react";
-import TextareaAutosize from "react-textarea-autosize";
 import ActionBtns from "./ActionBtns";
+import TextAreaComp from "./TextAreaComp";
 import { useDispatch } from "react-redux";
 import { nanoid } from "nanoid";
 import { addList } from "../features/ListSlice";
-import TextAreaComp from "./TextAreaComp";
 
 const NewListCreator = ({ toggleAddList }) => {
   const [listTittle, setListTittle] = useState("");
@@ -40,7 +39,7 @@ const NewListCreator = ({ toggleAddList }) => {
 
       <ActionBtns
         btnLabel="Add List"
-        toggleAddList={toggleAddList}
+        onCancel={toggleAddList}
         createList={createList}
       />
     </div>

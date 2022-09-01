@@ -1,8 +1,16 @@
 import React from "react";
+import { useState } from "react";
 import "../styles/List.css";
+import NewCardCreator from "./NewCardCreator";
 
 const List = ({ list }) => {
+  const [isAddingCard, setAddCard] = useState(false);
+
   const { id, tittle } = list;
+
+  const toggleCardCreator = () => {
+    setAddCard(!isAddingCard);
+  };
 
   return (
     <div className="listItem">
@@ -10,10 +18,14 @@ const List = ({ list }) => {
 
       <div className="listCards">Card</div>
 
-      <button className="btn btnAddList cardBtn">
-        <i className="fa-light fa-plus"></i>
-        Card
-      </button>
+      {isAddingCard ? (
+        <NewCardCreator toggleCardCreator={toggleCardCreator} />
+      ) : (
+        <button className="btn btnAddList cardBtn" onClick={toggleCardCreator}>
+          <i className="fa-light fa-plus"></i>
+          Card
+        </button>
+      )}
     </div>
   );
 };
