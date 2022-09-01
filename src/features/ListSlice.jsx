@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { current } from "@reduxjs/toolkit";
 
 const initialState = {
   lists: [
-    { id: "u_9venLrZygChUgTF4VDT", tittle: "Card 1" },
-    { id: "voOJ6q7BShzdQeKCjhhWz", tittle: "Card 2" },
+    { id: "u_9venLrZygChUgTF4VDT", tittle: "List 1" },
+    { id: "voOJ6q7BShzdQeKCjhhWz", tittle: "List 2" },
   ],
 };
 
@@ -31,7 +32,19 @@ const listSlice = createSlice({
     },
 
     addCard: (state, action) => {
-      console.log(action.payload);
+      const relevantList = state.lists.find((list) => {
+        return list.id === action.payload.listId;
+      });
+
+      if (relevantList.hasOwnProperty("cards")) {
+        relevantList.cards.push(action.payload);
+      } else {
+        const irrelevantList = state.lists.filter((list) => {
+          return list.id !== action.payload.listId;
+        });
+        relevantList.cards = [action.payload];
+        state.lists = [...irrelevantList, relevantList];
+      }
     },
   },
 });

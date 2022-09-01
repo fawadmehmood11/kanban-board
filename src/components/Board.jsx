@@ -10,6 +10,7 @@ const Board = () => {
   const [isListAdding, setAddList] = useState(false);
 
   const lists = useSelector(getLists);
+  // console.log(lists);
   const toggleAddList = () => {
     setAddList(!isListAdding);
   };

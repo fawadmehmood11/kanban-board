@@ -2,12 +2,19 @@ import React from "react";
 import TextAreaComp from "./TextAreaComp";
 import ActionBtns from "./ActionBtns";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addCard } from "../features/ListSlice";
 
-const NewCardCreator = ({ toggleCardCreator }) => {
+const NewCardCreator = ({ listId, toggleCardCreator }) => {
   const [cardContent, setCardContent] = useState("");
-
+  const dispatch = useDispatch();
   const handleChange = (e) => {
     setCardContent(e.target.value);
+  };
+
+  const createCard = () => {
+    toggleCardCreator();
+    dispatch(addCard({ listId, cardContent }));
   };
 
   return (
@@ -22,7 +29,7 @@ const NewCardCreator = ({ toggleCardCreator }) => {
       <ActionBtns
         btnLabel="Add Card"
         onCancel={toggleCardCreator}
-        // createList={createList}
+        onSave={createCard}
       />
     </div>
   );

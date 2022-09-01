@@ -1,10 +1,10 @@
 import React from "react";
 import "../styles/ActionBtns.css";
 
-const ActionBtns = ({ btnLabel, onCancel, createList }) => {
+const ActionBtns = ({ btnLabel, onCancel, onSave }) => {
   return (
     <div className="btnActions flex">
-      <button className="btn btnAction" onClick={createList}>
+      <button className="btn btnAction" onClick={onSave}>
         {btnLabel}
       </button>
 

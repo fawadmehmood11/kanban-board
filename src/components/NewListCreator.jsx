@@ -40,7 +40,7 @@ const NewListCreator = ({ toggleAddList }) => {
       <ActionBtns
         btnLabel="Add List"
         onCancel={toggleAddList}
-        createList={createList}
+        onSave={createList}
       />
     </div>
   );

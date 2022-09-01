@@ -6,7 +6,7 @@ import NewCardCreator from "./NewCardCreator";
 const List = ({ list }) => {
   const [isAddingCard, setAddCard] = useState(false);
 
-  const { id, tittle } = list;
+  const { id, tittle, cards } = list;
 
   const toggleCardCreator = () => {
     setAddCard(!isAddingCard);
@@ -16,10 +16,14 @@ const List = ({ list }) => {
     <div className="listItem">
       <div className="lisTittle">{tittle}</div>
 
-      <div className="listCards">Card</div>
+      {cards &&
+        cards.map((card) => {
+          console.log(card);
+          return <div className="listCards">{card.cardContent}</div>;
+        })}
 
       {isAddingCard ? (
-        <NewCardCreator toggleCardCreator={toggleCardCreator} />
+        <NewCardCreator listId={id} toggleCardCreator={toggleCardCreator} />
       ) : (
         <button className="btn btnAddList cardBtn" onClick={toggleCardCreator}>
           <i className="fa-light fa-plus"></i>
