@@ -24,7 +24,8 @@ const Creator = ({ list, toggleCreator, listId }) => {
 
   const createCard = () => {
     toggleCreator();
-    dispatch(addCard({ listId, cardContent }));
+    const cardId = nanoid();
+    dispatch(addCard({ listId, cardId, cardContent }));
   };
 
   const changeTypes = list ? setListTittle : setCardContent;

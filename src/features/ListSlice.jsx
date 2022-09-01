@@ -49,6 +49,7 @@ const listSlice = createSlice({
     },
 
     addCard: (state, action) => {
+      // console.log(action.payload);
       const relevantList = state.lists.find((list) => {
         return list.id === action.payload.listId;
       });
