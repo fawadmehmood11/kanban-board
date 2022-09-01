@@ -22,14 +22,7 @@ const NewListCreator = ({ toggleAddList }) => {
   };
 
   return (
-    <div className="ListEditor">
-      {/* <TextareaAutosize
-        className="textArea"
-        value={listTittle}
-        placeholder="Enter List Title"
-        onChange={(e) => setListTittle(e.target.value)}
-      /> */}
-
+    <div className="ListCreator">
       <TextAreaComp
         value={listTittle}
         placeholderVal="Enter List Title"

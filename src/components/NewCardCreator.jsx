@@ -18,7 +18,7 @@ const NewCardCreator = ({ listId, toggleCardCreator }) => {
   };
 
   return (
-    <div className="ListEditor" style={{ width: "100%", padding: "0px" }}>
+    <div className="ListCreator" style={{ width: "100%", padding: "0px" }}>
       <TextAreaComp
         value={cardContent}
         placeholderVal="Enter Card Content"

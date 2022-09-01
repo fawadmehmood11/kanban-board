@@ -5,12 +5,12 @@ import NewListCreator from "./NewListCreator";
 import { getLists } from "../features/ListSlice";
 import { useSelector } from "react-redux";
 import List from "./List";
+import Creator from "./Creator";
 
 const Board = () => {
   const [isListAdding, setAddList] = useState(false);
 
   const lists = useSelector(getLists);
-  // console.log(lists);
   const toggleAddList = () => {
     setAddList(!isListAdding);
   };
@@ -25,7 +25,8 @@ const Board = () => {
         {/* )} */}
         <div className="addList">
           {isListAdding ? (
-            <NewListCreator toggleAddList={toggleAddList} />
+            // <NewListCreator toggleAddList={toggleAddList} />
+            <Creator list={true} toggleCreator={toggleAddList} />
           ) : (
             <button className="btn btnAddList" onClick={toggleAddList}>
               <i className="fa-light fa-plus"></i>
