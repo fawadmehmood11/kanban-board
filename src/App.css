@@ -1,6 +1,9 @@
 :root {
-  --clr-primary: #f5f6f8;
-  --clr-secondary: #eaebec;
+  --clrPrimary: #f7f7f7;
+  --clrSecondary: #ebebeb;
+  --clrPrimary900: #ffffffc2;
+  --list-width: 300px;
+  --addListBtnWidth: 250px;
 }
 
 * {
@@ -9,9 +12,14 @@
   box-sizing: border-box;
 }
 
+body {
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
+}
+
 .App {
   min-height: 100vh;
-  background-color: var(--clr-primary);
+  background-color: var(--clrPrimary);
 }
 
 .flex {
@@ -24,7 +32,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--clr-secondary);
+  background-color: var(--clrSecondary);
   color: black;
   font-size: 24px;
   height: 60px;
@@ -36,8 +44,11 @@
   border-radius: 5px;
   cursor: pointer;
   color: black;
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
 }
 
 .btnAddList i {
-  font-size: 22px;
+  font-style: normal;
+  font-size: 20px;
 }

@@ -5,9 +5,9 @@
 }
 
 .listItem {
-  width: 250px;
+  width: var(--list-width);
   height: fit-content;
-  background-color: #eaebec;
+  background-color: var(--clrSecondary);
   padding: 8px 10px;
   display: flex;
   flex-direction: column;
@@ -15,15 +15,17 @@
 }
 
 .listCard {
-  background-color: white;
-  padding: 10px;
+  background-color: var(--clrPrimary);
+  /* box-shadow: 0 1px 0 #091e4240; */
+  padding: 7px;
   word-wrap: break-word;
+  border-radius: 3px;
   position: relative;
 }
 
 .listCard:hover {
   cursor: grab;
-  background-color: #f4f5f7;
+  background-color: var(--clrPrimary900);
 }
 
 .listCard:hover .btnEdit {
@@ -31,9 +33,8 @@
 }
 
 .btnEdit {
-  background-color: #f4f5f7;
+  background-color: var(--clrPrimary900);
   border-radius: 3px;
-  opacity: 0.8;
   padding: 8px;
   position: absolute;
   right: 2px;
@@ -44,10 +45,11 @@
 }
 
 .btnEdit:hover {
-  background-color: #ebecf0;
+  /* #ebecf0 */
+  background-color: var(--clrSecondary);
 }
 
 .cardBtn {
-  background-color: #f5f6f8;
+  background-color: #f4f5f7b3;
   width: 100%;
 }

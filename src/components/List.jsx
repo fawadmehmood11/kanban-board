@@ -52,13 +52,13 @@ const List = ({ list }) => {
           list={true}
         />
       ) : (
-        <div
+        <h5
           className="listTittle"
           onClick={toggleTitleEditing}
           style={{ cursor: "pointer" }}
         >
           {tittle}
-        </div>
+        </h5>
       )}
 
       {cards &&

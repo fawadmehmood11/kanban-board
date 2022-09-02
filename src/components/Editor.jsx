@@ -11,7 +11,7 @@ const Editor = ({
   list,
 }) => {
   return (
-    <div>
+    <>
       <TextAreaComp
         value={newText}
         handleChange={handleChange}
@@ -25,7 +25,7 @@ const Editor = ({
           onSave={saveEdit}
         />
       )}
-    </div>
+    </>
   );
 };
 

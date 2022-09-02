@@ -1,6 +1,6 @@
 .ListCreator {
   width: 250px;
-  background: var(--clr-secondary);
+  background: var(--clrSecondary);
   /* padding: 10px; */
   border-radius: 5px;
 }
