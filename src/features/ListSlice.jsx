@@ -101,6 +101,14 @@ const listSlice = createSlice({
         };
       },
     },
+
+    updateCardContent: (state, action) => {
+      console.log(action.payload);
+      const cardList = state.cards.find((card) => {
+        return card.cardId === action.payload.cardId;
+      });
+      cardList.cardContent = action.payload.cardContent;
+    },
   },
 });
 
@@ -115,6 +123,7 @@ export const selectCardById = (state, cardsIdList) => {
   });
   return cr;
 };
-export const { addList, addCard, updateListTitle } = listSlice.actions;
+export const { addList, addCard, updateListTitle, updateCardContent } =
+  listSlice.actions;
 
 export default listSlice.reducer;

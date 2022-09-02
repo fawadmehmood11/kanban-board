@@ -1,8 +1,13 @@
 import React, { useState } from "react";
 import Editor from "./Editor";
-const Card = ({ cardContent }) => {
+import { updateCardContent } from "../features/ListSlice";
+import { useDispatch } from "react-redux";
+
+// const Card = ({ cardContent }) => {
+const Card = ({ cardContent, cardId }) => {
   const [isEditingCard, setCardEditing] = useState(false);
   const [newContent, setNewContent] = useState(cardContent);
+  const dispatch = useDispatch();
 
   const toggleEditor = () => {
     setCardEditing(!isEditingCard);
@@ -12,6 +17,11 @@ const Card = ({ cardContent }) => {
     setNewContent(e.target.value);
   };
 
+  const saveChange = () => {
+    dispatch(updateCardContent({ cardId, cardContent: newContent }));
+    toggleEditor();
+  };
+
   return (
     <>
       {isEditingCard ? (
@@ -19,6 +29,7 @@ const Card = ({ cardContent }) => {
           newText={newContent}
           handleChange={handleCardChange}
           toggleCardEditor={toggleEditor}
+          saveEdit={saveChange}
         />
       ) : (
         <div className="listCard">

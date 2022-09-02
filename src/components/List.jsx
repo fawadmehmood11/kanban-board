@@ -64,7 +64,11 @@ const List = ({ list }) => {
       {cards &&
         cards.map((card) => {
           return (
-            <Card key={card[0].cardId} cardContent={card[0].cardContent} />
+            <Card
+              key={card[0].cardId}
+              cardContent={card[0].cardContent}
+              cardId={card[0].cardId}
+            />
             // return <div className="listCards">{card.cardContent}</div>;
           );
         })}
