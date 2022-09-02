@@ -46,13 +46,17 @@ const List = ({ list }) => {
     <div className="listItem">
       {isEditingTitle ? (
         <Editor
-          tittle={newTittle}
+          newText={newTittle}
           handleChange={handleTittleChange}
-          updateTitle={updateTitle}
+          updateContent={updateTitle}
           list={true}
         />
       ) : (
-        <div className="listTittle" onClick={toggleTitleEditing}>
+        <div
+          className="listTittle"
+          onClick={toggleTitleEditing}
+          style={{ cursor: "pointer" }}
+        >
           {tittle}
         </div>
       )}

@@ -1,14 +1,24 @@
 import React from "react";
+import ActionBtns from "./ActionBtns";
 import TextAreaComp from "./TextAreaComp";
 
-const Editor = ({ tittle, handleChange, updateTitle, list }) => {
+const Editor = ({
+  newText,
+  handleChange,
+  toggleCardEditor,
+  updateContent,
+  list,
+}) => {
   return (
-    <TextAreaComp
-      value={tittle}
-      handleChange={handleChange}
-      list={list}
-      saveChange={updateTitle}
-    />
+    <>
+      <TextAreaComp
+        value={newText}
+        handleChange={handleChange}
+        saveChange={updateContent}
+        list={list}
+      />
+      {!list && <ActionBtns btnLabel="Save" onCancel={toggleCardEditor} />}
+    </>
   );
 };
 

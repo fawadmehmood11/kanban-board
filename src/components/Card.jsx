@@ -1,30 +1,35 @@
 import React, { useState } from "react";
-
+import Editor from "./Editor";
 const Card = ({ cardContent }) => {
-  const [hover, setHover] = useState(false);
-  const hoverBegins = () => {
-    setHover(true);
+  const [isEditingCard, setCardEditing] = useState(false);
+  const [newContent, setNewContent] = useState(cardContent);
+
+  const toggleEditor = () => {
+    setCardEditing(!isEditingCard);
   };
 
-  const hoverEnds = () => {
-    setHover(false);
+  const handleCardChange = (e) => {
+    setNewContent(e.target.value);
   };
 
   return (
-    <div>
-      <div
-        className="listCards"
-        onMouseEnter={hoverBegins}
-        onMouseLeave={hoverEnds}
-      >
-        {cardContent}
-      </div>
-      {/* {!hover && (
-        <div className="editIcon">
-          <i className="fa-light fa-pencil"></i>
+    <>
+      {isEditingCard ? (
+        <Editor
+          newText={newContent}
+          handleChange={handleCardChange}
+          toggleCardEditor={toggleEditor}
+        />
+      ) : (
+        <div className="listCard">
+          <div className="listCards">{cardContent}</div>
+
+          <button className="btn btnEdit" onClick={toggleEditor}>
+            <i className="fa fa-pencil mr-1"></i>
+          </button>
         </div>
-      )} */}
-    </div>
+      )}
+    </>
   );
 };
 

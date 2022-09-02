@@ -12,17 +12,39 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  cursor: pointer;
 }
 
-.listCards {
+.listCard {
   background-color: white;
   padding: 10px;
+  word-wrap: break-word;
+  position: relative;
 }
 
-.listCards:hover {
+.listCard:hover {
   cursor: grab;
-  background-color: hsla(276, 100%, 2%, 0.048);
+  background-color: #f4f5f7;
+}
+
+.listCard:hover .btnEdit {
+  visibility: visible;
+}
+
+.btnEdit {
+  background-color: #f4f5f7;
+  border-radius: 3px;
+  opacity: 0.8;
+  padding: 8px;
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  font-size: 12px;
+  visibility: hidden;
+  z-index: 40;
+}
+
+.btnEdit:hover {
+  background-color: #ebecf0;
 }
 
 .cardBtn {
