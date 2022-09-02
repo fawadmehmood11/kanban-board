@@ -16,16 +16,12 @@ import Card from "./Card";
 
 const List = ({ list }) => {
   const [isAddingCard, setAddCard] = useState(false);
-  const [newTittle, setNewTitle] = useState("");
   const [isEditingTitle, setisEditingTitle] = useState(false);
   const { id, tittle, listCards } = list;
+  const [newTittle, setNewTitle] = useState(tittle);
 
   const dispatch = useDispatch();
   const cards = useSelector((state) => selectCardById(state, listCards));
-
-  // useEffect(() => {
-  //   if (tittle) setNewTitle(tittle);
-  // }, [tittle]);
 
   const toggleCardCreator = () => {
     setAddCard(!isAddingCard);
