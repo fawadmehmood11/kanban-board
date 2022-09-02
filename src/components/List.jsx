@@ -6,19 +6,26 @@ import Creator from "./Creator";
 import Editor from "./Editor";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updateListTitle } from "../features/ListSlice";
+import {
+  updateListTitle,
+  getCards,
+  selectCardById,
+} from "../features/ListSlice";
+import { useSelector } from "react-redux";
 import Card from "./Card";
 
 const List = ({ list }) => {
   const [isAddingCard, setAddCard] = useState(false);
   const [newTittle, setNewTitle] = useState("");
   const [isEditingTitle, setisEditingTitle] = useState(false);
-  const { id, tittle, cards } = list;
+  const { id, tittle, listCards } = list;
+  const cards = useSelector((state) => selectCardById(state, listCards));
+
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (tittle) setNewTitle(tittle);
-  }, [tittle]);
+  // useEffect(() => {
+  //   if (tittle) setNewTitle(tittle);
+  // }, [tittle]);
 
   const toggleCardCreator = () => {
     setAddCard(!isAddingCard);
@@ -56,8 +63,11 @@ const List = ({ list }) => {
 
       {cards &&
         cards.map((card) => {
-          return <Card cardContent={card.cardContent} />;
-          // return <div className="listCards">{card.cardContent}</div>;
+          console.log("Card", card);
+          return (
+            <Card key={card[0].cardId} cardContent={card[0].cardContent} />
+            // return <div className="listCards">{card.cardContent}</div>;
+          );
         })}
 
       {isAddingCard ? (
