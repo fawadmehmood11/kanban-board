@@ -19,10 +19,9 @@ const List = ({ list }) => {
   const [newTittle, setNewTitle] = useState("");
   const [isEditingTitle, setisEditingTitle] = useState(false);
   const { id, tittle, listCards } = list;
-  // console.log(list);
-  const cards = useSelector((state) => selectCardById(state, listCards));
 
   const dispatch = useDispatch();
+  const cards = useSelector((state) => selectCardById(state, listCards));
 
   // useEffect(() => {
   //   if (tittle) setNewTitle(tittle);
@@ -64,7 +63,6 @@ const List = ({ list }) => {
 
       {cards &&
         cards.map((card) => {
-          console.log("Card", card);
           return (
             <Card key={card[0].cardId} cardContent={card[0].cardContent} />
             // return <div className="listCards">{card.cardContent}</div>;

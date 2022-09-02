@@ -74,20 +74,32 @@ const listSlice = createSlice({
       },
     },
 
-    addCard: (state, action) => {
-      // console.log(action.payload);
-      // const relevantList = state.lists.find((list) => {
-      //   return list.id === action.payload.listId;
-      // });
-      // if (relevantList.hasOwnProperty("cards")) {
-      //   relevantList.cards.push(action.payload);
-      // } else {
-      //   const irrelevantList = state.lists.filter((list) => {
-      //     return list.id !== action.payload.listId;
-      //   });
-      //   relevantList.cards = [action.payload];
-      //   state.lists = [...irrelevantList, relevantList];
-      // }
+    addCard: {
+      reducer: (state, action) => {
+        // state.cards.push(action.payload.card);
+        // const relevantList = state.lists.find((list) => {
+        //   return list.id === action.payload.listId;
+        // });
+        // relevantList.listCards.push(action.payload.card.cardId);
+
+        // console.log(current(state));
+
+        state.cards.push(action.payload.cardData);
+        const relevantList = state.lists.find((list) => {
+          return list.id === action.payload.listId;
+        });
+        relevantList.listCards.push(action.payload.cardData.cardId);
+
+        console.log(current(state));
+      },
+      prepare(listId, cardId, cardContent) {
+        return {
+          payload: {
+            listId,
+            cardData: { cardId, cardContent },
+          },
+        };
+      },
     },
   },
 });
