@@ -20,6 +20,11 @@
   padding: 10px;
 }
 
+.listCards:hover {
+  cursor: grab;
+  background-color: hsla(276, 100%, 2%, 0.048);
+}
+
 .cardBtn {
   background-color: #f5f6f8;
   width: 100%;

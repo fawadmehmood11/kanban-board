@@ -7,6 +7,7 @@ import Editor from "./Editor";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { updateListTitle } from "../features/ListSlice";
+import Card from "./Card";
 
 const List = ({ list }) => {
   const [isAddingCard, setAddCard] = useState(false);
@@ -32,7 +33,6 @@ const List = ({ list }) => {
   };
 
   const updateTitle = (e) => {
-    // e.preventDefault();
     if (e.keyCode === 13) {
       dispatch(updateListTitle(id, newTittle));
       toggleTitleEditing();
@@ -49,14 +49,15 @@ const List = ({ list }) => {
           list={true}
         />
       ) : (
-        <div className="lisTittle" onClick={toggleTitleEditing}>
+        <div className="listTittle" onClick={toggleTitleEditing}>
           {tittle}
         </div>
       )}
 
       {cards &&
         cards.map((card) => {
-          return <div className="listCards">{card.cardContent}</div>;
+          return <Card cardContent={card.cardContent} />;
+          // return <div className="listCards">{card.cardContent}</div>;
         })}
 
       {isAddingCard ? (
