@@ -19,6 +19,7 @@ const List = ({ list }) => {
   const [newTittle, setNewTitle] = useState("");
   const [isEditingTitle, setisEditingTitle] = useState(false);
   const { id, tittle, listCards } = list;
+  // console.log(list);
   const cards = useSelector((state) => selectCardById(state, listCards));
 
   const dispatch = useDispatch();
@@ -83,4 +84,4 @@ const List = ({ list }) => {
   );
 };
 
-export default List;
+export default React.memo(List);

@@ -96,7 +96,6 @@ export const getLists = (state) => state.lists.lists;
 export const getCards = (state) => state.lists.cards;
 
 export const selectCardById = (state, cardsIdList) => {
-  // console.log(cardsIdList);
   const cr = cardsIdList.map((cardIds) => {
     return state.lists.cards.filter((card) => {
       return card.cardId === cardIds;
