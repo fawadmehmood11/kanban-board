@@ -12,17 +12,6 @@ const Card = ({ cardContent, cardId, index, listId }) => {
   const dispatch = useDispatch();
 
   const ref = useRef(null);
-
-  const style = {
-    // border: "1px dashed gray",
-    // padding: "0.5rem 1rem",
-    // marginBottom: ".5rem",
-    // backgroundColor: "white",
-    // cursor: "move",
-  };
-
-  // console.log("rerender", { cardId, index });
-
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: "Card",
@@ -84,33 +73,12 @@ const Card = ({ cardContent, cardId, index, listId }) => {
       }
       const dragIndex = item.index;
       const hoverIndex = index;
+
       // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
         return;
       }
       // Determine rectangle on screen
-      const hoverBoundingRect = ref.current?.getBoundingClientRect();
-      // Get vertical middle
-      const hoverMiddleY =
-        (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-      // Determine mouse position
-      const clientOffset = monitor.getClientOffset();
-      // Get pixels to the top
-      const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-      // Only perform the move when the mouse has crossed half of the items height
-      // When dragging downwards, only move when the cursor is below 50%
-      // When dragging upwards, only move when the cursor is above 50%
-      // Dragging downwards
-      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
-        return;
-      }
-      // Dragging upwards
-      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
-        return;
-      }
-      // Time to actually perform the action
-      // moveCard(dragIndex, hoverIndex);
-
       dispatch(
         moveCard({
           cardId: item.cardId,
@@ -141,7 +109,6 @@ const Card = ({ cardContent, cardId, index, listId }) => {
     toggleEditor();
   };
   drag(drop(ref));
-  // console.log(isDragging);
   const opacity = isDragging ? 0 : 1;
 
   return (
@@ -157,7 +124,7 @@ const Card = ({ cardContent, cardId, index, listId }) => {
         <div
           className="listCard"
           ref={ref}
-          style={{ ...style, opacity }}
+          style={{ opacity }}
           data-handler-id={handlerId}
         >
           <div className="listCards">{cardContent}</div>

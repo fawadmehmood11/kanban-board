@@ -76,21 +76,11 @@ const listSlice = createSlice({
 
     addCard: {
       reducer: (state, action) => {
-        // state.cards.push(action.payload.card);
-        // const relevantList = state.lists.find((list) => {
-        //   return list.id === action.payload.listId;
-        // });
-        // relevantList.listCards.push(action.payload.card.cardId);
-
-        // console.log(current(state));
-
         state.cards.push(action.payload.cardData);
         const relevantList = state.lists.find((list) => {
           return list.id === action.payload.listId;
         });
         relevantList.listCards.push(action.payload.cardData.cardId);
-
-        console.log(current(state));
       },
       prepare(listId, cardId, cardContent) {
         return {
@@ -111,18 +101,23 @@ const listSlice = createSlice({
 
     moveCard: (state, action) => {
       const { cardId, dropIndex, itemIndex } = action.payload;
-      console.log(action.payload);
       const relevantList = state.lists.find((list) => {
         return list.id === action.payload.listId;
       });
 
-      // const draggedItem = relevantList.listCards[itemIndex];
-      // console.log("dragged Item", draggedItem);
       relevantList.listCards.splice(itemIndex, 1);
       relevantList.listCards.splice(dropIndex, 0, cardId);
-      // console.log(cardId, relevantList.listCards[itemIndex]);
+    },
 
-      // console.log(current(relevantList.listCards));
+    moveList: (state, action) => {
+      // console.log(action.payload);
+      const { listId, dropIndex, itemIndex } = action.payload;
+
+      const draggedItem = state.lists[itemIndex];
+      // console.log("Dragged Item", draggedItem);
+      state.lists.splice(itemIndex, 1);
+      state.lists.splice(dropIndex, 0, draggedItem);
+      // console.log(current(state));
     },
   },
 });
@@ -144,6 +139,7 @@ export const {
   updateListTitle,
   updateCardContent,
   moveCard,
+  moveList,
 } = listSlice.actions;
 
 export default listSlice.reducer;

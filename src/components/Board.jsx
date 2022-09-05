@@ -1,14 +1,17 @@
 import React from "react";
 import "../styles/Board.css";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import NewListCreator from "./NewListCreator";
-import { getLists } from "../features/ListSlice";
+import { getLists, moveList } from "../features/ListSlice";
 import { useSelector } from "react-redux";
+import { useDrop } from "react-dnd";
+
 import List from "./List";
 import Creator from "./Creator";
 
 const Board = () => {
   const [isListAdding, setAddList] = useState(false);
+  const ref = useRef(null);
 
   const lists = useSelector(getLists);
   const toggleAddList = () => {
@@ -19,8 +22,8 @@ const Board = () => {
     <>
       {/* {lists.length > 0 && ( */}
       <div className="list">
-        {lists.map((list) => {
-          return <List key={list.id} list={list} />;
+        {lists.map((list, index) => {
+          return <List key={list.id} list={list} index={index} />;
         })}
         {/* )} */}
         <div className="addList">
