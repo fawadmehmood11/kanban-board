@@ -6,7 +6,7 @@ const initialState = {
     {
       id: "u_9venLrZygChUgTF4VDT",
       tittle: "List 1",
-      listCards: ["uqwTDxPowfAnWTy4hgH_Q", "uqwTDxPowfAnWTy4hasH_Q"],
+      listCards: ["uqwTDxPowfAnWTy4hgH_Q", "akskasmkasm"],
     },
     {
       id: "voOJ6q7BShzdQeKCjhhWz",
@@ -22,7 +22,7 @@ const initialState = {
     },
 
     {
-      cardId: "uqwTDxPowfAnWTy4hasH_Q",
+      cardId: "akskasmkasm",
       cardContent: "ipsum dolor sit amet, consectetur adipiscing elit",
     },
     {
@@ -103,11 +103,26 @@ const listSlice = createSlice({
     },
 
     updateCardContent: (state, action) => {
-      console.log(action.payload);
       const cardList = state.cards.find((card) => {
         return card.cardId === action.payload.cardId;
       });
       cardList.cardContent = action.payload.cardContent;
+    },
+
+    moveCard: (state, action) => {
+      const { cardId, dropIndex, itemIndex } = action.payload;
+      console.log(action.payload);
+      const relevantList = state.lists.find((list) => {
+        return list.id === action.payload.listId;
+      });
+
+      // const draggedItem = relevantList.listCards[itemIndex];
+      // console.log("dragged Item", draggedItem);
+      relevantList.listCards.splice(itemIndex, 1);
+      relevantList.listCards.splice(dropIndex, 0, cardId);
+      // console.log(cardId, relevantList.listCards[itemIndex]);
+
+      // console.log(current(relevantList.listCards));
     },
   },
 });
@@ -123,7 +138,12 @@ export const selectCardById = (state, cardsIdList) => {
   });
   return cr;
 };
-export const { addList, addCard, updateListTitle, updateCardContent } =
-  listSlice.actions;
+export const {
+  addList,
+  addCard,
+  updateListTitle,
+  updateCardContent,
+  moveCard,
+} = listSlice.actions;
 
 export default listSlice.reducer;

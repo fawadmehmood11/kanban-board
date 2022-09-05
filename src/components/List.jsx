@@ -62,12 +62,14 @@ const List = ({ list }) => {
       )}
 
       {cards &&
-        cards.map((card) => {
+        cards.map((card, index) => {
           return (
             <Card
               key={card[0].cardId}
               cardContent={card[0].cardContent}
               cardId={card[0].cardId}
+              index={index}
+              listId={id}
             />
             // return <div className="listCards">{card.cardContent}</div>;
           );
