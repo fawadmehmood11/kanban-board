@@ -11,13 +11,15 @@ const Card = ({ cardContent, cardId, index, listId }) => {
   const [newContent, setNewContent] = useState(cardContent);
   const dispatch = useDispatch();
 
+  // console.log("rerender", { cardContent, cardId, index, listId });
+
   const ref = useRef(null);
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: "Card",
       item: () => {
-        // console.log("Drag", { cardId, index });
-        return { cardId, index };
+        // console.log("item", { listId, cardId, index });
+        return { listId, cardId, index };
       },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
@@ -26,75 +28,49 @@ const Card = ({ cardContent, cardId, index, listId }) => {
     [{ cardId, index }]
   );
 
-  const [{ handlerId }, drop] = useDrop({
-    accept: "Card",
-    // drop: (item) => {
-    //   console.log("item", item);
-    //   if (!ref.current) {
-    //     return;
-    //   }
+  const [{ handlerId, isOver }, drop] = useDrop(
+    {
+      accept: "Card",
+      collect(monitor) {
+        return {
+          // isDragging: monitor.isDragging(),
+          handlerId: monitor.getHandlerId(),
+        };
+      },
 
-    //   // console.log(item, index);
+      drop(item, monitor) {
+        if (!ref.current) {
+          return;
+        }
+        const dragIndex = item.index;
+        const hoverIndex = index;
+        const currentList = item.listId;
+        const hoveredList = listId;
 
-    //   const dragIndex = item.index;
-    //   const hoverIndex = index;
+        // console.log({
+        //   itemIndex: item.index,
+        //   hoverIndex: hoverIndex,
+        // });
+        if (dragIndex === hoverIndex && currentList === hoveredList) {
+          return;
+        }
 
-    //   console.log("hover index", hoverIndex);
-    //   // Don't replace items with themselves
-    //   if (dragIndex === hoverIndex) {
-    //     console.log("Same", item);
-    //     return;
-    //   }
+        dispatch(
+          moveCard({
+            cardId: item.cardId,
+            itemIndex: item.index,
+            dropIndex: hoverIndex,
+            currentList,
+            hoveredList,
+          })
+        );
 
-    //   console.log({
-    //     cardId: item.cardId,
-    //     dropIndex: hoverIndex,
-    //     itemIndex: item.index,
-    //   });
-    //   dispatch(
-    //     moveCard({
-    //       cardId: item.cardId,
-    //       dropIndex: hoverIndex,
-    //       itemIndex: item.index,
-    //     })
-    //   );
-
-    //   item.index = hoverIndex;
-    //   console.log("end Called", item.index);
-    // },
-    collect(monitor) {
-      return {
-        handlerId: monitor.getHandlerId(),
-      };
+        item.index = hoverIndex;
+        item.listId = hoveredList;
+      },
     },
-    hover(item, monitor) {
-      if (!ref.current) {
-        return;
-      }
-      const dragIndex = item.index;
-      const hoverIndex = index;
-
-      // Don't replace items with themselves
-      if (dragIndex === hoverIndex) {
-        return;
-      }
-      // Determine rectangle on screen
-      dispatch(
-        moveCard({
-          cardId: item.cardId,
-          dropIndex: hoverIndex,
-          itemIndex: item.index,
-          listId,
-        })
-      );
-
-      // Note: we're mutating the monitor item here!
-      // Generally it's better to avoid mutations,
-      // but it's good here for the sake of performance
-      // to avoid expensive index searches.
-      item.index = hoverIndex;
-    },
-  });
+    [{ cardId, index }]
+  );
 
   const toggleEditor = () => {
     setCardEditing(!isEditingCard);
@@ -109,8 +85,8 @@ const Card = ({ cardContent, cardId, index, listId }) => {
     toggleEditor();
   };
   drag(drop(ref));
-  const opacity = isDragging ? 0 : 1;
 
+  const opacity = isDragging ? 0 : 1;
   return (
     <>
       {isEditingCard ? (
@@ -121,12 +97,7 @@ const Card = ({ cardContent, cardId, index, listId }) => {
           saveEdit={saveChange}
         />
       ) : (
-        <div
-          className="listCard"
-          ref={ref}
-          style={{ opacity }}
-          data-handler-id={handlerId}
-        >
+        <div className="listCard" ref={ref} style={{ opacity }}>
           <div className="listCards">{cardContent}</div>
 
           <button className="btn btnEdit" onClick={toggleEditor}>
@@ -138,4 +109,4 @@ const Card = ({ cardContent, cardId, index, listId }) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);

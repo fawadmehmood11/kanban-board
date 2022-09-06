@@ -4,31 +4,34 @@ import { current } from "@reduxjs/toolkit";
 const initialState = {
   lists: [
     {
-      id: "u_9venLrZygChUgTF4VDT",
+      id: "List1",
       tittle: "List 1",
-      listCards: ["uqwTDxPowfAnWTy4hgH_Q", "akskasmkasm"],
+      listCards: ["card1", "card2"],
     },
     {
-      id: "voOJ6q7BShzdQeKCjhhWz",
+      id: "List2",
       tittle: "List 2",
-      listCards: ["eC9ahZyVmA1qnxxOffQcd"],
+      listCards: ["card3", "card4"],
     },
   ],
 
   cards: [
     {
-      cardId: "uqwTDxPowfAnWTy4hgH_Q",
-      cardContent: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
+      cardId: "card1",
+      cardContent: "Wireframe Landing Page",
     },
 
     {
-      cardId: "akskasmkasm",
-      cardContent: "ipsum dolor sit amet, consectetur adipiscing elit",
+      cardId: "card2",
+      cardContent: "Write Blog post",
     },
     {
-      cardId: "eC9ahZyVmA1qnxxOffQcd",
-      cardContent:
-        "Sed ut perspiciatis unde omnis iste natus error sit voluptatem",
+      cardId: "card3",
+      cardContent: "Build Checkout Page",
+    },
+    {
+      cardId: "card4",
+      cardContent: "Revamp login page",
     },
   ],
 };
@@ -100,13 +103,22 @@ const listSlice = createSlice({
     },
 
     moveCard: (state, action) => {
-      const { cardId, dropIndex, itemIndex } = action.payload;
+      const { cardId, dropIndex, itemIndex, currentList, hoveredList } =
+        action.payload;
+      console.log(action.payload);
       const relevantList = state.lists.find((list) => {
-        return list.id === action.payload.listId;
+        return list.id === currentList;
       });
-
-      relevantList.listCards.splice(itemIndex, 1);
-      relevantList.listCards.splice(dropIndex, 0, cardId);
+      if (currentList === hoveredList) {
+        relevantList.listCards.splice(itemIndex, 1);
+        relevantList.listCards.splice(dropIndex, 0, cardId);
+      } else {
+        const draggedCard = relevantList.listCards.splice(itemIndex, 1);
+        const filterList = state.lists.find((list) => {
+          return list.id === action.payload.hoveredList;
+        });
+        filterList.listCards.splice(dropIndex, 0, cardId);
+      }
     },
 
     moveList: (state, action) => {

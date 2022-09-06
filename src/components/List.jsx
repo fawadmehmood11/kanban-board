@@ -13,6 +13,7 @@ import {
 import { useSelector } from "react-redux";
 import Card from "./Card";
 import { useDrag, useDrop } from "react-dnd";
+import { moveCard } from "../features/ListSlice";
 
 const List = ({ list, index }) => {
   const [isAddingCard, setAddCard] = useState(false);
@@ -49,14 +50,12 @@ const List = ({ list, index }) => {
     },
     hover(item, monitor) {
       if (!ref.current) {
-        // console.log("ref not found");
         return;
       }
       const dragIndex = item.index;
       const hoverIndex = index;
       // Don't replace items with themselves
       if (dragIndex === hoverIndex) {
-        // console.log("same index");
         return;
       }
       dispatch(
@@ -74,6 +73,51 @@ const List = ({ list, index }) => {
       item.index = hoverIndex;
     },
   });
+
+  const [, dropCard] = useDrop(
+    {
+      accept: "Card",
+      collect(monitor) {
+        return {
+          handlerId: monitor.getHandlerId(),
+        };
+      },
+
+      drop(item) {
+        if (!ref.current) {
+          return;
+        }
+        const dragIndex = item.index;
+        const hoverIndex = index;
+        const currentList = item.listId;
+        const hoveredList = id;
+
+        if (dragIndex === hoverIndex && currentList === hoveredList) {
+          return;
+        }
+        // console.log({
+        //   cardId: item.cardId,
+        //   itemIndex: item.index,
+        //   dropIndex: hoverIndex,
+        //   currentList: item.listId,
+        //   hoveredList,
+        // });
+        dispatch(
+          moveCard({
+            cardId: item.cardId,
+            itemIndex: item.index,
+            dropIndex: hoverIndex,
+            currentList,
+            hoveredList,
+          })
+        );
+
+        item.index = hoverIndex;
+        item.listId = hoveredList;
+      },
+    },
+    [id, index]
+  );
 
   const toggleCardCreator = () => {
     setAddCard(!isAddingCard);
@@ -121,29 +165,32 @@ const List = ({ list, index }) => {
         </h5>
       )}
 
-      {cards &&
-        cards.map((card, index) => {
-          return (
-            <Card
-              key={card[0].cardId}
-              cardContent={card[0].cardContent}
-              cardId={card[0].cardId}
-              index={index}
-              listId={id}
-            />
-            // return <div className="listCards">{card.cardContent}</div>;
-          );
-        })}
+      <div className="ListCards" ref={dropCard}>
+        {cards &&
+          cards.map((card, index) => {
+            return (
+              <Card
+                key={card[0].cardId}
+                cardContent={card[0].cardContent}
+                cardId={card[0].cardId}
+                index={index}
+                listId={id}
+              />
+            );
+          })}
 
-      {isAddingCard ? (
-        // <NewCardCreator listId={id} toggleCardCreator={toggleCardCreator} />
-        <Creator listId={id} toggleCreator={toggleCardCreator} />
-      ) : (
-        <button className="btn btnAddList cardBtn" onClick={toggleCardCreator}>
-          <i className="fa-light fa-plus"></i>
-          Card
-        </button>
-      )}
+        {isAddingCard ? (
+          <Creator listId={id} toggleCreator={toggleCardCreator} />
+        ) : (
+          <button
+            className="btn btnAddList cardBtn"
+            onClick={toggleCardCreator}
+          >
+            <i className="fa-light fa-plus"></i>
+            Card
+          </button>
+        )}
+      </div>
     </div>
   );
 };
