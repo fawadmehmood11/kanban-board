@@ -1,0 +1,16 @@
+.addList {
+  width: var(--addListBtnWidth);
+}
+
+.btnAddList {
+  width: inherit;
+  height: 40px;
+  padding: 0px 5px;
+  /* font-size: 16px; */
+  background-color: #eaebec;
+  color: #a3a5a9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+}

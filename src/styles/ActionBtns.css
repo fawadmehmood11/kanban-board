@@ -1,0 +1,13 @@
+.btnActions {
+  margin-bottom: 10px;
+}
+
+.btnAction {
+  padding: 5px 20px;
+  border-radius: 0px;
+  background-color: var(--clrPrimary);
+}
+
+.btnCancel {
+  background-color: transparent;
+}

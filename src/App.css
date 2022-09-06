@@ -1,13 +1,38 @@
+:root {
+  --clrPrimary: #f7f7f7;
+  --clrSecondary: #ebebeb;
+  --clrPrimary900: #ffffffc2;
+  --list-width: 300px;
+  --addListBtnWidth: 250px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
+}
+
 .App {
   min-height: 100vh;
-  background-color: #f5f6f8;
+  background-color: var(--clrPrimary);
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 .header {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #eaebec;
+  background-color: var(--clrSecondary);
   color: black;
   font-size: 24px;
   height: 60px;
@@ -16,34 +41,14 @@
 .btn {
   outline: none;
   border: none;
-  border-radius: 8px;
+  border-radius: 5px;
   cursor: pointer;
   color: black;
-}
-
-.btnAddList {
-  width: 230px;
-  height: 40px;
-  font-size: 16px;
-  text-align: left;
-  background-color: white;
-  display: flex;
-  gap: 10px;
-  align-items: center;
+  font-family: "Raleway", sans-serif;
+  font-size: 14px;
 }
 
 .btnAddList i {
-  font-size: 22px;
-}
-
-.addList {
-  max-width: 230px;
-  margin: 10px;
-}
-
-.textArea {
-  width: 100%;
-  border: none;
-  outline: none;
-  resize: none;
+  font-style: normal;
+  font-size: 20px;
 }
