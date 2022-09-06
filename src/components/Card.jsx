@@ -11,14 +11,11 @@ const Card = ({ cardContent, cardId, index, listId }) => {
   const [newContent, setNewContent] = useState(cardContent);
   const dispatch = useDispatch();
 
-  // console.log("rerender", { cardContent, cardId, index, listId });
-
   const ref = useRef(null);
   const [{ isDragging }, drag] = useDrag(
     () => ({
       type: "Card",
       item: () => {
-        // console.log("item", { listId, cardId, index });
         return { listId, cardId, index };
       },
       collect: (monitor) => ({
@@ -28,12 +25,11 @@ const Card = ({ cardContent, cardId, index, listId }) => {
     [{ cardId, index }]
   );
 
-  const [{ handlerId, isOver }, drop] = useDrop(
+  const [, drop] = useDrop(
     {
       accept: "Card",
       collect(monitor) {
         return {
-          // isDragging: monitor.isDragging(),
           handlerId: monitor.getHandlerId(),
         };
       },
@@ -47,10 +43,6 @@ const Card = ({ cardContent, cardId, index, listId }) => {
         const currentList = item.listId;
         const hoveredList = listId;
 
-        // console.log({
-        //   itemIndex: item.index,
-        //   hoverIndex: hoverIndex,
-        // });
         if (dragIndex === hoverIndex && currentList === hoveredList) {
           return;
         }

@@ -6,7 +6,6 @@ import Editor from "./Editor";
 import { useDispatch } from "react-redux";
 import {
   updateListTitle,
-  getCards,
   selectCardById,
   moveList,
 } from "../features/ListSlice";
@@ -20,8 +19,6 @@ const List = ({ list, index }) => {
   const [isEditingTitle, setisEditingTitle] = useState(false);
   const { id, tittle, listCards } = list;
   const [newTittle, setNewTitle] = useState(tittle);
-
-  // console.log("rerender", { id, tittle, index });
 
   const dispatch = useDispatch();
   const cards = useSelector((state) => selectCardById(state, listCards));
@@ -41,7 +38,7 @@ const List = ({ list, index }) => {
     }),
     [id, index]
   );
-  const [{ handlerId }, drop] = useDrop({
+  const [, drop] = useDrop({
     accept: "List",
     collect(monitor) {
       return {
@@ -74,51 +71,6 @@ const List = ({ list, index }) => {
     },
   });
 
-  const [, dropCard] = useDrop(
-    {
-      accept: "Card",
-      collect(monitor) {
-        return {
-          handlerId: monitor.getHandlerId(),
-        };
-      },
-
-      drop(item) {
-        if (!ref.current) {
-          return;
-        }
-        const dragIndex = item.index;
-        const hoverIndex = index;
-        const currentList = item.listId;
-        const hoveredList = id;
-
-        if (dragIndex === hoverIndex && currentList === hoveredList) {
-          return;
-        }
-        // console.log({
-        //   cardId: item.cardId,
-        //   itemIndex: item.index,
-        //   dropIndex: hoverIndex,
-        //   currentList: item.listId,
-        //   hoveredList,
-        // });
-        dispatch(
-          moveCard({
-            cardId: item.cardId,
-            itemIndex: item.index,
-            dropIndex: hoverIndex,
-            currentList,
-            hoveredList,
-          })
-        );
-
-        item.index = hoverIndex;
-        item.listId = hoveredList;
-      },
-    },
-    [id, index]
-  );
-
   const toggleCardCreator = () => {
     setAddCard(!isAddingCard);
   };
@@ -145,7 +97,7 @@ const List = ({ list, index }) => {
     <div
       className="listItem"
       ref={ref}
-      data-handler-id={handlerId}
+      // data-handler-id={handlerId}
       style={{ opacity }}
     >
       {isEditingTitle ? (
@@ -165,7 +117,7 @@ const List = ({ list, index }) => {
         </h5>
       )}
 
-      <div className="ListCards" ref={dropCard}>
+      <div className="ListCards">
         {cards &&
           cards.map((card, index) => {
             return (
